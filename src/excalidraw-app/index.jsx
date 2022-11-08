@@ -1,6 +1,6 @@
 
 import LanguageDetector from "i18next-browser-languagedetector";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useCallbackRefState } from "../hooks/useCallbackRefState";
 import { Excalidraw, defaultLang } from "../packages/excalidraw/index";
 import {
@@ -28,9 +28,6 @@ languageDetector.init({
 });
 
 const initializeScene = async (opts) => {
-  const jsonBackendMatch = window.location.hash.match(
-    /^#json=([a-zA-Z0-9_-]+),([a-zA-Z0-9_-]+)$/,
-  );
 
   const localDataState = importFromLocalStorage();
 
@@ -50,13 +47,7 @@ const initializeScene = async (opts) => {
   }
 
   if (scene) {
-    return jsonBackendMatch
-      ? {
-          scene,
-          id: jsonBackendMatch[1],
-          key: jsonBackendMatch[2],
-        }
-      : { scene };
+    return { scene };
   }
   return { scene: null };
 };
